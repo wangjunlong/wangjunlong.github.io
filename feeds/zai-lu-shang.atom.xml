@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>樂 · 麟</title><link href="/" rel="alternate"></link><link href="/feeds/zai-lu-shang.atom.xml" rel="self"></link><id>/</id><updated>2014-04-17T00:00:00+08:00</updated><entry><title>又见Myspace</title><link href="/you-jian-myspace.html" rel="alternate"></link><updated>2014-04-17T00:00:00+08:00</updated><author><name>lonnie</name></author><id>tag:,2014-04-17:you-jian-myspace.html</id><summary type="html">&lt;p&gt;很早之前就想建一个属于自己的空间，最早的时候在myspace建过一个，也经营得不错。可惜后来Microsoft关闭了专项服务，导致不得不将其搬家至新浪博客。但是国内博客的同质化比较严重，所以慢慢的，也就荒废了。直到去年找工作期间，在北邮人论坛上一个小学弟发了一个关于建立github技术博客的帖子。看到简洁又自主的博客，不禁又重新燃起自己建站的愿望。但一直都在自己给自己找借口，迟迟没有行动。这几日在家中等待工作落定的结果，实在闲的焦虑，于是翻出老爹早就准备好的mac，重新踏上个人小兴趣的探索之路。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;其实一开始这篇文章的题目是《pelican+github快速搭建个人博客》，但是写完第一段突然觉得这个题目过于程序员了，一点也不“文艺”，于是乎新题目就来了。——又见Myspace&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;其实目前的版本是最简单的版本，这里的blog应该是我原计划个人空间的一个部分，但也是主要部分了。现在的theme虽然不是最满意，但也是比较接近我想想的风格了。我会慢慢的研究探索，并恢复出当年Myspace的气息。然后不断地让这里朝着我理想的状态发展，然后最终开启www.lonniewang.com的使用。&lt;/p&gt;
+&lt;p&gt;下面就一步一步的回述我的搭建过程：&lt;/p&gt;
+&lt;p&gt;搭建环境：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;mac&lt;/span&gt; &lt;span class="n"&gt;OS&lt;/span&gt; &lt;span class="n"&gt;X&lt;/span&gt; &lt;span class="mf"&gt;10.9.2&lt;/span&gt;
+&lt;span class="n"&gt;python&lt;/span&gt; &lt;span class="mf"&gt;2.7.5&lt;/span&gt;
+&lt;span class="n"&gt;pelican&lt;/span&gt; &lt;span class="n"&gt;lastest&lt;/span&gt; &lt;span class="n"&gt;version&lt;/span&gt;
+&lt;span class="n"&gt;markdown&lt;/span&gt; &lt;span class="n"&gt;lastest&lt;/span&gt; &lt;span class="n"&gt;version&lt;/span&gt;
+&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="mf"&gt;1.9.0&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;OS X默认安装了python，而且很多非windows系统都默认安装了2.7左右版本的python，所以这里不过多记录python安装过程。windows的安装过程也很简单，官网下载一个安装包，然后配置一下环境变量就可以了。&lt;/p&gt;
+&lt;h3&gt;1.安装pelican、markdown、git&lt;/h3&gt;
+&lt;p&gt;选择pelican是因为他是纯python的框架，研究生期间学到的python技能可以进一步得到应用。另外，个人觉得使用markdown编辑文档是一件很赏心悦目的事情，django也是很不错的框架，但是pelican支持markdown转译，所以二者搭配起来自然会比较爽。&lt;/p&gt;
+&lt;p&gt;安装比较方便，使用如下命令：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;easy_install&lt;/span&gt; &lt;span class="n"&gt;pelican&lt;/span&gt;
+&lt;span class="n"&gt;sudo&lt;/span&gt; &lt;span class="n"&gt;easy_install&lt;/span&gt; &lt;span class="n"&gt;markdown&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;mac中已经默认安装好了easy_install，这是一个安装pyhon包的快捷工具，类似的还有pip，可以通过easy_install pip来安装。windows下需要暗转setuptools来支持easy_install功能。&lt;/p&gt;
+&lt;p&gt;git的安装，是单独下载安装包安装的，在google或者baidu里搜索mac git安装就能找到安装文件，然后安装就好了。&lt;/p&gt;
+&lt;h3&gt;2.本地建立pelican框架&lt;/h3&gt;
+&lt;p&gt;在本地想存放blog的位置执行如下命令，建立博客框架：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;mkdir&lt;/span&gt; &lt;span class="n"&gt;blog&lt;/span&gt;              &lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="n"&gt;blog&lt;/span&gt;&lt;span class="err"&gt;可以自定义&lt;/span&gt;
+&lt;span class="n"&gt;cd&lt;/span&gt; &lt;span class="n"&gt;blog&lt;/span&gt;                 &lt;span class="err"&gt;#进入创建的文件夹&lt;/span&gt;
+&lt;span class="n"&gt;pelican&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;quickstart&lt;/span&gt;      &lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="n"&gt;pelican&lt;/span&gt;&lt;span class="err"&gt;快速建立框架&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;之后会在blog目录下生成如下结构&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;blog&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;  
+&lt;span class="err"&gt;├──&lt;/span&gt; &lt;span class="n"&gt;content&lt;/span&gt;  &lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="err"&gt;存放你要写的博客&lt;/span&gt;  
+&lt;span class="err"&gt;│&lt;/span&gt;   &lt;span class="err"&gt;└──&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;pages&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;  &lt;span class="err"&gt;#单纯的页面&lt;/span&gt;  
+&lt;span class="err"&gt;├──&lt;/span&gt; &lt;span class="n"&gt;output&lt;/span&gt;   &lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="err"&gt;生成的输出文件&lt;/span&gt;  
+&lt;span class="err"&gt;├──&lt;/span&gt; &lt;span class="n"&gt;develop_server&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sh&lt;/span&gt;&lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="err"&gt;方便开启测试服务器&lt;/span&gt;  
+&lt;span class="err"&gt;├──&lt;/span&gt; &lt;span class="n"&gt;Makefile&lt;/span&gt; &lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="err"&gt;方便管理博客的&lt;/span&gt;&lt;span class="n"&gt;Makefile&lt;/span&gt;  
+&lt;span class="err"&gt;├──&lt;/span&gt; &lt;span class="n"&gt;pelicanconf&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;py&lt;/span&gt;   &lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="err"&gt;主配置文件&lt;/span&gt;  
+&lt;span class="err"&gt;└──&lt;/span&gt; &lt;span class="n"&gt;publishconf&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;py&lt;/span&gt;   &lt;span class="err"&gt;#&lt;/span&gt; &lt;span class="err"&gt;主发布文件，可删除&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;其中content、output、pelicanconf.py这三项是用的最多的。content存放我们自己编写的markdown文件，output存放由content目录的markdown转换来的html文件以及publish出来的网页文件。pelicanconf.py文件存储blog的基本配置信息，如blog的标题，时域，theme等其他相关信息。&lt;/p&gt;
+&lt;h3&gt;3.为博客写第一篇文章&lt;/h3&gt;
+&lt;p&gt;mac下一般使用Mou工具来书写markdown文件，Mou为用户提供了边写边预览的功能。写好后将文件存在blog/content下面。
+在blog目录下执行如下命令：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;make&lt;/span&gt; &lt;span class="n"&gt;html&lt;/span&gt;
+&lt;span class="n"&gt;make&lt;/span&gt; &lt;span class="n"&gt;publish&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;这样blog就发布成功了，以后进行了各种修改，想要重新发布的话，执行这两个命令就可以了。&lt;/p&gt;
+&lt;p&gt;想要在本地预览下的话，执行如下命令：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;make&lt;/span&gt; &lt;span class="n"&gt;serve&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;或者&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;python&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="n"&gt;SimpleHTTPServer&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;然后在浏览器中输入&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nl"&gt;http:&lt;/span&gt;&lt;span class="c1"&gt;//127.0.0.1：8000&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;就可以看到预览效果了。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;make功能在mac中需要安装xcode才能使用，如果你发现make不能用的话，在iTunes里安装一下xcode就可以了。（也许会提示你要先更新OS X才能安装xcode）&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3&gt;4.更换theme&lt;/h3&gt;
+&lt;p&gt;到这已经非常有成就感了。但是对默认的basic主题不满意，于是乎开始寻求更换blog的theme。找了很多资料，但是大家都说的比较泛，多次尝试之后总结了如下的步骤。&lt;/p&gt;
+&lt;p&gt;首先，在blog目录下执行：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;clone&lt;/span&gt; &lt;span class="n"&gt;https&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;//github.com/getpelican/pelican-themes.git&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;将pelican-themes复制到本地，这是一个theme包，不知道是不是官方的，但是貌似所有的theme都在里面。也可以不复制整个pelican-themes版本库，可以在https://github.com/getpelican/pelican-themes.git里挨个看theme，喜欢哪个直接clone那个到blog目录下就好。&lt;/p&gt;
+&lt;p&gt;确定了使用哪个后修改pelicanconf.py文件，加入&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;THEME&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;quot;your theme path&amp;quot;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;blockquote&gt;
+&lt;p&gt;比如你过你要用的theme在pelican-themes目录下的pelican-cait文件夹中，那么THEME = "pelican-themes/pelican-cait"。 不同的theme可能有自己特殊的设置要求，注意配置就是了。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;保存pelicanconf.py文件后，重新发布blog就可以了。&lt;/p&gt;
+&lt;h3&gt;5.开通github&lt;/h3&gt;
+&lt;p&gt;github入门的知识请看文后附的参考资料&lt;/p&gt;
+&lt;p&gt;Github为每一个用户分配了一个二级域名username.github.io，用户为自己的二级域名创建主页很简单，只需要在Github下创建一个名为username.github.io的版本库，并向其master分支提交网站静态页面即可。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;登陆Github，创建一个名为username.github.io的版本库（将username替换成自己的Github账户名）。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;点击Setting，选择一个自己喜欢的模板，最后点击发布public按钮。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;耐心等待一段时间（不超过10分钟），登陆http://username.github.io，会发现自己的个人博客已经生成。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;6.将本地的博客同步到github&lt;/h3&gt;
+&lt;p&gt;本地进入blog/output目录，执行如下命令：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;init&lt;/span&gt;    &lt;span class="err"&gt;#在&lt;/span&gt;&lt;span class="n"&gt;output&lt;/span&gt;&lt;span class="err"&gt;建立&lt;/span&gt;&lt;span class="n"&gt;git&lt;/span&gt;&lt;span class="err"&gt;版本库&lt;/span&gt;
+&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;add&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt;   &lt;span class="err"&gt;#添加&lt;/span&gt;&lt;span class="n"&gt;output&lt;/span&gt;&lt;span class="err"&gt;下所有文件进入本地版本库&lt;/span&gt;
+&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;remote&lt;/span&gt; &lt;span class="n"&gt;add&lt;/span&gt; &lt;span class="n"&gt;origin&lt;/span&gt; &lt;span class="n"&gt;https&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="c1"&gt;//github.com/username/username.github.io.git  &lt;/span&gt;
+&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;pull&lt;/span&gt; &lt;span class="n"&gt;origin&lt;/span&gt; &lt;span class="n"&gt;master&lt;/span&gt;      &lt;span class="err"&gt;#将&lt;/span&gt;&lt;span class="n"&gt;github&lt;/span&gt;&lt;span class="err"&gt;上的文件先&lt;/span&gt;&lt;span class="n"&gt;pull&lt;/span&gt;&lt;span class="err"&gt;到本地&lt;/span&gt;
+&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;commit&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;am&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;commit&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;     &lt;span class="err"&gt;#标记&lt;/span&gt;&lt;span class="n"&gt;commit&lt;/span&gt;
+&lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;push&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;u&lt;/span&gt; &lt;span class="n"&gt;origin&lt;/span&gt; &lt;span class="n"&gt;master&lt;/span&gt;   &lt;span class="err"&gt;#&lt;/span&gt;&lt;span class="n"&gt;push&lt;/span&gt;&lt;span class="err"&gt;本地版本库文件到&lt;/span&gt;&lt;span class="n"&gt;github&lt;/span&gt;&lt;span class="err"&gt;上&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;也有可以一键上传到Github的方法，需要修改Makefile两处地方：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nl"&gt;publish:&lt;/span&gt;
+&lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;PELICAN&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;INPUTDIR&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;o&lt;/span&gt; &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;OUTPUTDIR&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;CONFFILE&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;PELICANOPTS&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="nl"&gt;github:&lt;/span&gt; &lt;span class="n"&gt;publish&lt;/span&gt;
+&lt;span class="n"&gt;cd&lt;/span&gt; &lt;span class="n"&gt;OUTPUTDIR&lt;/span&gt; &lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;add&lt;/span&gt; &lt;span class="p"&gt;.&lt;/span&gt; &lt;span class="p"&gt;;&lt;/span&gt;  &lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;commit&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;am&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;your&lt;/span&gt; &lt;span class="n"&gt;comments&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt; &lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;git&lt;/span&gt; &lt;span class="n"&gt;push&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;修改后，可以直接使用如下命令同步&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;make&lt;/span&gt; &lt;span class="n"&gt;github&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;7.其他&lt;/h3&gt;
+&lt;p&gt;许多theme种都会要求填写DISQUS_SITENAME和GOOGLE_ANALYTICS，前者提供评论功能，后者提供问网站的访问流量统计功能，可以帮助网站更好地被google检索到。前者直接在disqus主页上注册，然后记住注册的名字。后者在&lt;a href=""&gt;http://www.google.com/analytics&lt;/a&gt;注册后会给你一个ID。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;DISQUS_SITENAME&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="err"&gt;‘&lt;/span&gt;&lt;span class="n"&gt;your&lt;/span&gt; &lt;span class="n"&gt;disqus&lt;/span&gt; &lt;span class="n"&gt;site&lt;/span&gt; &lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="err"&gt;’&lt;/span&gt;
+&lt;span class="n"&gt;GOOGLE_ANALYTICS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;your&lt;/span&gt; &lt;span class="n"&gt;GA&lt;/span&gt; &lt;span class="n"&gt;ID&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;     &lt;span class="err"&gt;#类似于&lt;/span&gt;&lt;span class="n"&gt;GA415143323&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h3&gt;8.域名绑定&lt;/h3&gt;
+&lt;p&gt;域名我是在很早就在新网买好了，根据前人的经验，我在新网的DNS管理里做了如下设置：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;申请一条&lt;/span&gt;&lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="err"&gt;记录指向&lt;/span&gt;&lt;span class="n"&gt;Github&lt;/span&gt; &lt;span class="n"&gt;Pages&lt;/span&gt;&lt;span class="err"&gt;的&lt;/span&gt;&lt;span class="n"&gt;ip&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mf"&gt;207.97.227.245&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;然后在github上username.github.io版本库最外层的目录上添加一个CNAME文件，文件内容为自己A记录里设置的域名，这里我的是blog.lonniewang.com&lt;/p&gt;
+&lt;p&gt;至此整个设置就完成了。以后添加文章就如第3步写的一样就可以了。&lt;/p&gt;
+&lt;h3&gt;附上整个搭建过程中在网上找到的有用的参考资料：&lt;/h3&gt;
+&lt;p&gt;[1] &lt;a href="http://www.dongxf.com/3_Build_Personal_Blog_With_Pelican_And_GitHub_Pages.html"&gt;用 Pelican 和 GitHub Pages 搭建免费的个人博客&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;[2] &lt;a href="http://www.lizherui.com/pages/2013/08/17/build_blog.html"&gt;一步一步打造Geek风格的技术博客&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;[3] &lt;a href="http://akenzc.com/how-to-build-a-blog-with-pelican.html"&gt;使用Pelican搭建Blog&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;[4] &lt;a href="http://sunus.me/"&gt;http://sunus.me/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;[5] &lt;a href="http://docs.getpelican.com/en/latest/getting_started.html"&gt;Pelican Getting started&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;[6] &lt;a href="https://github.com/qpython-android/qpython-android.pelican/blob/master/content/jekyll2pelican.md"&gt;如何从 Jekyll 转进入 Pelican&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;[7] &lt;a href="http://www.yanyulin.info/pages/2013/11/github.html"&gt;Github简明教程(入门篇)&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;[8] &lt;a href="http://www.yanyulin.info/pages/2013/11/githubM.html"&gt;Github上如何给别人贡献代码&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;[9] &lt;a href="http://blog.csdn.net/zwjlpeng/article/details/16918289"&gt;pelican搭建属于自已的博客&lt;/a&gt;&lt;/p&gt;</summary><category term="pelican"></category><category term="github"></category><category term="markdown"></category><category term="blog"></category><category term="主机域名"></category><category term="python"></category></entry></feed>
