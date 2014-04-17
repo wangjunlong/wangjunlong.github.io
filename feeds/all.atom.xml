@@ -5,6 +5,7 @@
 &lt;span class="err"&gt;三者，愿自己能用多種語言在此記錄想說的話；&lt;/span&gt;
 &lt;span class="err"&gt;四者，愿這裡能成為摯友的聚集地；&lt;/span&gt;
 &lt;span class="err"&gt;五者，這裡是第一步，切記知、行。&lt;/span&gt;
+<<<<<<< HEAD
 &lt;/pre&gt;&lt;/div&gt;</summary><category term="待定"></category></entry><entry><title>又见Myspace</title><link href="/you-jian-myspace.html" rel="alternate"></link><updated>2014-04-17T00:00:00+08:00</updated><author><name>lonnie</name></author><id>tag:,2014-04-17:you-jian-myspace.html</id><summary type="html">&lt;p&gt;很早之前就想建一个属于自己的空间，最早的时候在myspace建过一个，也经营得不错。可惜后来Microsoft关闭了专项服务，导致不得不将其搬家至新浪博客。但是国内博客的同质化比较严重，所以慢慢的，也就荒废了。直到去年找工作期间，在北邮人论坛上一个小学弟发了一个关于建立github技术博客的帖子。看到简洁又自主的博客，不禁又重新燃起自己建站的愿望。但一直都在自己给自己找借口，迟迟没有行动。这几日在家中等待工作落定的结果，实在闲的焦虑，于是翻出老爹早就准备好的mac，重新踏上个人小兴趣的探索之路。&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;其实一开始这篇文章的题目是《pelican+github快速搭建个人博客》，但是写完第一段突然觉得这个题目过于程序员了，一点也不“文艺”，于是乎新题目就来了。——又见Myspace&lt;/p&gt;
@@ -161,3 +162,6 @@
 &lt;p&gt;[7] &lt;a href="http://www.yanyulin.info/pages/2013/11/github.html"&gt;Github简明教程(入门篇)&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;[8] &lt;a href="http://www.yanyulin.info/pages/2013/11/githubM.html"&gt;Github上如何给别人贡献代码&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;[9] &lt;a href="http://blog.csdn.net/zwjlpeng/article/details/16918289"&gt;pelican搭建属于自已的博客&lt;/a&gt;&lt;/p&gt;</summary><category term="pelican"></category><category term="github"></category><category term="markdown"></category><category term="blog"></category><category term="主机域名"></category><category term="python"></category></entry></feed>
+=======
+&lt;/pre&gt;&lt;/div&gt;</summary><category term="待定"></category></entry></feed>
+>>>>>>> 7a59c840ca0066b970e74e86edab372f73b2a527
